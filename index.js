@@ -10,7 +10,7 @@ app.use(cors());
 app.use(express.json());
 
 // base url
-app.get("./", (req, res) => {
+app.get("/", (req, res) => {
   res.send("Car dealer Server running");
 });
 
