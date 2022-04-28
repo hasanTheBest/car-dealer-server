@@ -48,7 +48,7 @@ async function run() {
       res.send(cars);
     });
   } finally {
-    await client.close();
+    // await client.close();
   }
 }
 run().catch(console.dir);
