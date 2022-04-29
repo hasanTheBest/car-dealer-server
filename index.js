@@ -82,7 +82,7 @@ async function run() {
     });
 
     // update quantity of the specific car
-    app.put("/inventory/:id", (req, res) => {
+    /* app.put("/inventory/:id", (req, res) => {
       const { id } = req.params;
       const { quantity } = req.body;
 
@@ -103,8 +103,7 @@ async function run() {
       const result = await carCollection.updateOne(filter, updateDoc, options)
 
       res.send(result);
-    });
-
+    }); */
   } finally {
     // await client.close();
   }
