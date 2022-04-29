@@ -43,6 +43,13 @@ async function run() {
       const query = {};
       const cursor = carCollection.find(query).limit(8);
       const cars = await cursor.toArray();
+    });
+
+    // get all cars for collection
+    app.get("/inventory", async (req, res) => {
+      const query = {};
+      const cursor = carCollection.find(query);
+      const cars = await cursor.toArray();
 
       // send the data
       res.send(cars);
