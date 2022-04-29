@@ -74,12 +74,12 @@ async function run() {
       const query = {
         _id: ObjectId(id),
       };
+
+      const car = await carCollection.findOne(query);
+
+      // send data
+      res.send(car);
     });
-
-    const car = await carCollection.findOne(query);
-
-    // send data
-    res.send(car);
   } finally {
     // await client.close();
   }
