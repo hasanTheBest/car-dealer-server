@@ -38,11 +38,19 @@ async function run() {
       res.send(car);
     });
 
-    // get 8 cars for collection
+    // get featured cars for collection
     app.get("/featured", async (req, res) => {
       const query = {};
-      const cursor = carCollection.find(query).limit(8);
+      const options = {
+        sort: {
+          price: -1,
+        },
+      };
+      const cursor = carCollection.find(query, options).limit(8);
       const cars = await cursor.toArray();
+
+      // send the data
+      res.send(cars);
     });
 
     // get all cars for collection
