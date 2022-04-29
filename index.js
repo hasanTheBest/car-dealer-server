@@ -61,7 +61,7 @@ async function run() {
           _id: -1,
         },
       };
-      const cursor = carCollection.find(query, options).limit(8);
+      const cursor = carCollection.find(query, options);
       const cars = await cursor.toArray();
 
       // send the data
@@ -80,6 +80,31 @@ async function run() {
       // send data
       res.send(car);
     });
+
+    // update quantity of the specific car
+    app.put("/inventory/:id", (req, res) => {
+      const { id } = req.params;
+      const { quantity } = req.body;
+
+      const filter = {
+        _id: ObjectId(id),
+      };
+
+      const options = {
+        upsert: true,
+      };
+
+      const updateDoc = {
+        $set: {
+          quantity: parseInt(quantity) 
+        }
+      }
+
+      const result = await carCollection.updateOne(filter, updateDoc, options)
+
+      res.send(result);
+    });
+
   } finally {
     // await client.close();
   }
