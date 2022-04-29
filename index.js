@@ -1,5 +1,5 @@
 const express = require("express");
-const { MongoClient, ServerApiVersion } = require("mongodb");
+const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 const cors = require("cors");
 const port = process.env.PORT || 5000;
 
@@ -43,7 +43,7 @@ async function run() {
       const query = {};
       const options = {
         sort: {
-          price: -1,
+          _id: 1,
         },
       };
       const cursor = carCollection.find(query, options).limit(8);
@@ -56,12 +56,30 @@ async function run() {
     // get all cars for collection
     app.get("/inventory", async (req, res) => {
       const query = {};
-      const cursor = carCollection.find(query);
+      const options = {
+        sort: {
+          _id: -1,
+        },
+      };
+      const cursor = carCollection.find(query, options).limit(8);
       const cars = await cursor.toArray();
 
       // send the data
       res.send(cars);
     });
+
+    // get a single car
+    app.get("/inventory/:id", async (req, res) => {
+      const { id } = req.params;
+      const query = {
+        _id: ObjectId(id),
+      };
+    });
+
+    const car = await carCollection.findOne(query);
+
+    // send data
+    res.send(car);
   } finally {
     // await client.close();
   }
