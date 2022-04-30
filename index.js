@@ -113,7 +113,7 @@ async function run() {
         _id: ObjectId(id),
       };
 
-      const result = await movies.deleteOne(query);
+      const result = await carCollection.deleteOne(query);
 
       if (result.deletedCount === 1) {
         res.send(result);
