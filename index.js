@@ -104,6 +104,23 @@ async function run() {
 
       res.send(result);
     });
+
+    // deleting a doc
+    app.delete("/inventory/:id", async (req, res) => {
+      const { id } = req.params;
+
+      const query = {
+        _id: ObjectId(id),
+      };
+
+      const result = await movies.deleteOne(query);
+
+      if (result.deletedCount === 1) {
+        res.send(result);
+      } else {
+        console.log("No documents matched the query. Deleted 0 documents.");
+      }
+    });
   } finally {
     // await client.close();
   }
