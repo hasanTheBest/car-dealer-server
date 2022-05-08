@@ -119,6 +119,27 @@ async function run() {
 
       res.send(result);
     });
+    // updating a item
+    app.put("/manageItem/:id", async (req, res) => {
+      const { id } = req.params;
+      // const { data } = req.body;
+
+      const filter = {
+        _id: ObjectId(id),
+      };
+
+      const options = {
+        upsert: true,
+      };
+
+      const updateDoc = {
+        $set: req.body,
+      };
+
+      const result = await carCollection.updateOne(filter, updateDoc, options);
+
+      res.send(result);
+    });
 
     // deleting a doc
     app.delete("/inventory/:id", async (req, res) => {
