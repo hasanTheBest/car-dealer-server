@@ -46,7 +46,7 @@ async function run() {
           _id: 1,
         },
       };
-      const cursor = carCollection.find(query, options).limit(8);
+      const cursor = carCollection.find(query, options).limit(6);
       const cars = await cursor.toArray();
 
       // send the data
