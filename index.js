@@ -121,6 +121,13 @@ async function run() {
         console.log("No documents matched the query. Deleted 0 documents.");
       }
     });
+
+    // inserting a doc
+    app.post("/addItem", async (req, res) => {
+      const result = await carCollection.insertOne(req.body);
+
+      res.send(result);
+    });
   } finally {
     // await client.close();
   }
