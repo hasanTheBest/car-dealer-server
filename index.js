@@ -81,6 +81,21 @@ async function run() {
       res.send(car);
     });
 
+    // get the user's collection
+    app.get("/myItems", async (req, res) => {
+      const { user } = req.query;
+
+      const query = {
+        email: user,
+      };
+
+      const cars = carCollection.find(query);
+      const result = await cars.toArray();
+
+      // send data
+      res.send(result);
+    });
+
     // update quantity of the specific car
     app.put("/inventory/:id", async (req, res) => {
       const { id } = req.params;
